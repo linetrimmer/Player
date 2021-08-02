@@ -991,6 +991,11 @@ public class PlayerActivity extends Activity {
         @SuppressLint("SourceLockedOrientationActivity")
         @Override
         public void onPlaybackStateChanged(int state) {
+            if (state == Player.STATE_ENDED) {
+                releasePlayer();
+                finishAfterTransition();
+                return;
+            }
             boolean isNearEnd = false;
             final long duration = player.getDuration();
             if (duration != C.TIME_UNSET) {
